@@ -1,4 +1,4 @@
-# Matrix-Benchmark
+# Matrix Benchmark
 
 A cupy (GPU) / numpy (Numpy) benchmark to measure how fast different hardware can perform matrix operations. The benchmark tests operations commonly used in the word embedding research field. 
 
