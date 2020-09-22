@@ -113,7 +113,7 @@ def run_benchmark(
 
     print(f"---> Running benchmark <---")
 
-    print(f"Device: {mm.get_device_name(force_cpu=force_cpu)}. FP{fp}.\n")
+    print(f"Device: {mm.get_device_name(force_cpu=force_cpu)}. FP{fp}. Matrix size: {matrix_size} x 300\n")
 
     tasks = [
         "dot",

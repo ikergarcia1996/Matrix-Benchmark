@@ -28,7 +28,9 @@ def get_gpu_memory() -> int:
     assert _cupy_available, "Cupy not available, unable to use GPU"
     _output_to_list: Callable = lambda x: x.decode("ascii").split("\n")[:-1]
     command: str = "nvidia-smi --query-gpu=memory.free --format=csv"
-    memory_free_info: List[str] = _output_to_list(sp.check_output(command.split()))[1:]
+    memory_free_info: List[str] = _output_to_list(
+        subprocess.check_output(command.split())
+    )[1:]
     memory_free_values: List[int] = [
         int(x.split()[0]) for i, x in enumerate(memory_free_info)
     ]
@@ -242,6 +244,8 @@ def knn_dot(
         a.shape[1] == b.shape[1]
     ), f"Both matrices should have the number of dimensions. A {a.shape}. B {b.shape}"
 
+    assert batch_size > k, "Batch size should be larger than k"
+
     result: np.ndarray = np.zeros((a.shape[0], k), dtype=np.int32)
 
     if return_distances:
@@ -421,6 +425,8 @@ def knn_euclidean_distance(
     assert (
         a.shape[1] == b.shape[1]
     ), f"Both matrices should have the number of dimensions. A {a.shape}. B {b.shape}"
+
+    assert batch_size > k, "Batch size should be larger than k"
 
     result: np.ndarray = np.zeros((a.shape[0], k), dtype=np.int32)
 
