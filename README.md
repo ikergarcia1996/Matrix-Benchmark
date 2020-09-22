@@ -6,8 +6,8 @@ A cupy (GPU) / numpy (Numpy) benchmark to measure how fast different hardware ca
 * Matrix dot
 * Squared Distance
 * Euclidean distance
-* K-nearest neighbors (dot)
-* K-nearest neighbors (euclidean distance)
+* K-nearest neighbours (dot)
+* K-nearest neighbours (euclidean distance)
 
 ## Requeriments
 * python3
@@ -24,7 +24,7 @@ You can test different batch sizes with the --gpy_batch_sizes parameter
 python3 run_benchmark.py --gpu_batch_sizes 100 500 1000 2000
 ```
 
-You can test diferent matrix sizes with the --matrix_size parameter
+You can test different matrix sizes with the --matrix_size parameter
 
 ```
 python3 run_benchmark.py --gpu_batch_sizes 100 500 1000 2000 --matrix_size 10000
@@ -41,8 +41,3 @@ Running euclidean_distance task. Batch size: 1000. fp32. Time: 3.089018901189168
 Running knn_dot task. Batch size: 1000. fp32. Time: 1.4538000424702961 seconds.
 Running knn_euclidean_distance task. Batch size: 1000. fp32. Time: OUT OF MEMORY
 ```
-
-
-
-
-
