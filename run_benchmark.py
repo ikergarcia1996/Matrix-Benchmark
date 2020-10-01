@@ -74,10 +74,10 @@ def test_knn(
 
     for test_no in range(num_tests):
         a: np.ndarray = np.array(
-            np.random.rand(matrix_size, matrix_size), dtype=array_type
+            np.random.rand(matrix_size, 300), dtype=array_type
         )
         b: np.ndarray = np.array(
-            np.random.rand(matrix_size, matrix_size), dtype=array_type
+            np.random.rand(matrix_size, 300), dtype=array_type
         )
 
         time_start: float = time.time()
@@ -128,7 +128,6 @@ def run_benchmark(
 
     tasks_minimal: List[str] = [
         "dot",
-        "knn_dot",
     ]
 
     for task_name in tasks_full if all_tasks else tasks_minimal:
@@ -246,7 +245,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--full_benchmark",
         action="store_true",
-        help="Run the euclidean distance / squared distance tests",
+        help="Run the knn / euclidean distance / squared distance tests",
     )
 
     args = parser.parse_args()
