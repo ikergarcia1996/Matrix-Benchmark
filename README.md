@@ -36,6 +36,14 @@ To run the kkn / euclian distance / squared distance benchmarks use the --full_b
 python3 run_benchmark.py --full_benchmark
 ```
 
+You can run the benchmark in FP16, Fp32 or FP64 (FP16 not supported for knn in current cupy version)
+
+```
+python3 run_benchmark.py --fp16
+python3 run_benchmark.py --fp32
+python3 run_benchmark.py --fp64
+```
+
 ## Sample Output
 ```
 ---> Running benchmark <---
@@ -46,4 +54,15 @@ Running squared_distance task. Batch size: 1000. fp32. Time: 3.1240174770355225 
 Running euclidean_distance task. Batch size: 1000. fp32. Time: 3.0890189011891684 seconds.
 Running knn_dot task. Batch size: 1000. fp32. Time: 1.4538000424702961 seconds.
 Running knn_euclidean_distance task. Batch size: 1000. fp32. Time: OUT OF MEMORY
+```
+
+## Benchmarks
+
+![alt text](https://pbs.twimg.com/media/EjP0dTzU8AA2d9D?format=png&name=medium "Benchmarks")
+
+To reproduce results:
+```
+python3 run_benchmark.py --gpu_batch_sizes 2000 --matrix_size 50000 --fp 16
+python3 run_benchmark.py --gpu_batch_sizes 2000 --matrix_size 50000 --fp 32
+python3 run_benchmark.py --gpu_batch_sizes 2000  --matrix_size 50000 --fp 64
 ```
