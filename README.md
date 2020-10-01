@@ -30,6 +30,12 @@ You can test different matrix sizes with the --matrix_size parameter
 python3 run_benchmark.py --gpu_batch_sizes 100 500 1000 2000 --matrix_size 10000
 ```
 
+To run the euclian distance / squared distance benchmarks use the --full_benchmark flag
+
+```
+python3 run_benchmark.py --full_benchmark
+```
+
 ## Sample Output
 ```
 ---> Running benchmark <---
