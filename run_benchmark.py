@@ -109,13 +109,16 @@ def run_benchmark(
     num_tests: int = 5,
     force_cpu: bool = False,
     show_progress: bool = False,
+    all_tasks: bool = True,
 ):
 
     print(f"---> Running benchmark <---")
 
-    print(f"Device: {mm.get_device_name(force_cpu=force_cpu)}. FP{fp}. Matrix size: {matrix_size} x 300\n")
+    print(
+        f"Device: {mm.get_device_name(force_cpu=force_cpu)}. FP{fp}. Matrix size: {matrix_size} x 300\n"
+    )
 
-    tasks = [
+    tasks_full: List[str] = [
         "dot",
         "squared_distance",
         "euclidean_distance",
@@ -123,7 +126,12 @@ def run_benchmark(
         "knn_euclidean_distance",
     ]
 
-    for task_name in tasks:
+    tasks_minimal: List[str] = [
+        "dot",
+        "knn_dot",
+    ]
+
+    for task_name in tasks_full if all_tasks else tasks_minimal:
         task: callable
         task_name: str
         task_type: str
@@ -235,6 +243,12 @@ if __name__ == "__main__":
         help="Show a progress bar during matrix operations",
     )
 
+    parser.add_argument(
+        "--full_benchmark",
+        action="store_true",
+        help="Run the euclidean distance / squared distance tests",
+    )
+
     args = parser.parse_args()
 
     run_benchmark(
@@ -245,4 +259,5 @@ if __name__ == "__main__":
         num_tests=args.num_tests,
         force_cpu=args.use_cpu,
         show_progress=args.show_progress,
+        all_tasks=args.full_benchmark,
     )
