@@ -64,5 +64,5 @@ To reproduce results:
 ```
 python3 run_benchmark.py --gpu_batch_sizes 2000 --matrix_size 50000 --fp 16
 python3 run_benchmark.py --gpu_batch_sizes 2000 --matrix_size 50000 --fp 32
-python3 run_benchmark.py --gpu_batch_sizes 2000  --matrix_size 50000 --fp 64
+python3 run_benchmark.py --gpu_batch_sizes 2000 --matrix_size 50000 --fp 64
 ```
