@@ -244,7 +244,9 @@ def knn_dot(
         a.shape[1] == b.shape[1]
     ), f"Both matrices should have the number of dimensions. A {a.shape}. B {b.shape}"
 
-    assert batch_size > k, "Batch size should be larger than k"
+    assert (
+        b.shape[0] >= k
+    ), f"K cannot be larger than the number of neighborhoods. k:{k}. Number of neighborhoods: {b.shape[0]}"
 
     result: np.ndarray = np.zeros((a.shape[0], k), dtype=np.int32)
 
@@ -276,9 +278,9 @@ def knn_dot(
                 b_end = min(b_index + batch_size, b.shape[0])
                 distances = a[a_index:a_end].dot(b[b_index:b_end].T)
 
-                batch_result_indexes2 = np.argpartition(distances, kth=-k, axis=1)[
-                    :, -k:
-                ]
+                batch_result_indexes2 = np.argpartition(
+                    distances, kth=-min(k, distances.shape[1]), axis=1
+                )[:, -k:]
                 batch_result_distances2 = distances[
                     np.arange(distances.shape[0])[:, np.newaxis], batch_result_indexes2
                 ]
@@ -348,9 +350,9 @@ def knn_dot(
                     cp.asarray(b[b_index:b_end]).T
                 )
 
-                batch_result_indexes2 = cp.argpartition(distances, kth=-k, axis=1)[
-                    :, -k:
-                ]
+                batch_result_indexes2 = cp.argpartition(
+                    distances, kth=-min(k, distances.shape[1]), axis=1
+                )[:, -k:]
                 batch_result_distances2 = distances[
                     cp.arange(distances.shape[0])[:, cp.newaxis], batch_result_indexes2
                 ]
@@ -426,7 +428,9 @@ def knn_euclidean_distance(
         a.shape[1] == b.shape[1]
     ), f"Both matrices should have the number of dimensions. A {a.shape}. B {b.shape}"
 
-    assert batch_size > k, "Batch size should be larger than k"
+    assert (
+        b.shape[0] >= k
+    ), f"K cannot be larger than the number of neighborhoods. k:{k}. Number of neighborhoods: {b.shape[0]}"
 
     result: np.ndarray = np.zeros((a.shape[0], k), dtype=np.int32)
 
@@ -462,7 +466,9 @@ def knn_euclidean_distance(
                     -1,
                 )
 
-                batch_result_indexes2 = np.argpartition(distances, kth=k, axis=1)[:, :k]
+                batch_result_indexes2 = np.argpartition(
+                    distances, kth=min(k, distances.shape[1]), axis=1
+                )[:, :k]
                 batch_result_distances2 = distances[
                     np.arange(distances.shape[0])[:, np.newaxis], batch_result_indexes2
                 ]
@@ -535,7 +541,9 @@ def knn_euclidean_distance(
                     -1,
                 )
 
-                batch_result_indexes2 = cp.argpartition(distances, kth=k, axis=1)[:, :k]
+                batch_result_indexes2 = cp.argpartition(
+                    distances, kth=min(k, distances.shape[1]), axis=1
+                )[:, :k]
                 batch_result_distances2 = distances[
                     cp.arange(distances.shape[0])[:, cp.newaxis], batch_result_indexes2
                 ]
@@ -589,3 +597,4 @@ def knn_euclidean_distance(
         return result, result_distances
     else:
         return result
+
