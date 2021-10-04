@@ -58,7 +58,7 @@ Running knn_euclidean_distance task. Batch size: 1000. fp32. Time: OUT OF MEMORY
 
 ## Benchmarks
 
-![alt text](https://pbs.twimg.com/media/EjP0dTzU8AA2d9D?format=png&name=medium "Benchmarks")
+![alt text](Results.png "Benchmarks")
 
 To reproduce results:
 ```
